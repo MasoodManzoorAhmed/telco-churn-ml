@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual envs
+venv/
+.venv/
+
+# OS files
+.DS_Store
+
+# Model artifacts (optional – we already copied to EC2 manually)
+*.pkl
