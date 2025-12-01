@@ -192,14 +192,14 @@ If CI passes:
 ________________________________________
 # **15. System Architecture Diagram**
                     ┌───────────────────────────────┐
-                    │      Google Colab (Training)   │
-                    │  SMOTE + RF + ANN + Evaluation │
+                    │      Google Colab (Training)  │
+                    │  SMOTE + RF + ANN + Evaluation│
                     └───────────────┬───────────────┘
                                     │
                                     ▼
              ┌───────────────────────────────────────────┐
-             │ Local Machine (VS Code)                    │
-             │ Model Artifacts + Streamlit App            │
+             │ Local Machine (VS Code)                   │
+             │ Model Artifacts + Streamlit App           │
              └───────────────┬───────────────────────────┘
                              │ Git Push
                              ▼
@@ -217,8 +217,8 @@ ________________________________________
                                │
                                ▼
                ┌────────────────────────────────────┐
-               │ Telecom Managers / End-Users        │
-               │ Web Dashboard for Churn Prediction  │
+               │ Telecom Managers / End-Users       │
+               │ Web Dashboard for Churn Prediction │
                └────────────────────────────────────┘
 ________________________________________
 # **16. Future Enhancements**
