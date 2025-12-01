@@ -179,33 +179,31 @@ Trained & compared:<br>
 All models used the same preprocessing pipeline for fair comparison.<br>
 
 ________________________________________
-# **8. Model Evaluation**<br>
+# **8. Model Evaluation**
 
-📌 AUC Scores<br>
+## 📌 AUC Scores
 
-Model	AUC<br>
+| Model               | AUC     |
+|--------------------|---------|
+| **ANN (Best)**     | **0.826** |
+| Logistic Regression | 0.822   |
+| XGBoost            | 0.821   |
+| Random Forest      | 0.814   |
 
-ANN (Best)	0.826<br>
+<br>
 
-Logistic Regression	0.822<br>
+## 📌 Classification Metrics Summary
 
-XGBoost	0.821<br>
+| Model               | Accuracy | Recall (Churn) | F1 (Churn) |
+|---------------------|----------|----------------|------------|
+| Logistic Regression | 0.74     | **0.72**       | 0.60       |
+| Random Forest       | 0.77     | 0.64           | 0.60       |
+| XGBoost             | 0.76     | 0.66           | 0.59       |
+| **ANN**             | **0.78** | 0.62           | 0.61       |
 
-Random Forest	0.814<br>
+<br>
 
-📌 Classification Metrics Summary<br>
-
-Model	                        Accuracy	Recall (Churn)	F1 (Churn)<br>
-
-Logistic Regression            	0.74	    0.72	        0.60<br>
-
-Random Forest	                  0.77	    0.64	        0.60<br>
-
-XGBoost	                        0.76	    0.66	        0.59<br>
-
-ANN	                            0.78	    0.62	        0.61<br>
-
-All models performed robustly for business use.<br>
+All models performed robustly and are suitable for real-world telecom churn prediction.
 
 ________________________________________
 # **9. Final Production Model — Random Forest**
@@ -295,6 +293,7 @@ If CI passes:
 •	Updates production app automatically
 
 ✔ Benefits
+
 •	No manual deployment
 
 •	Zero-downtime updates
