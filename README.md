@@ -1,6 +1,31 @@
 # 📘 Customer Churn Prediction — End-to-End Machine Learning System (Production Ready)
 **By: Masood Manzoor Ahmed — Machine Learning Engineer (Telecom • AI • Cloud)**
 
+<!-- ⚡ TECH STACK BADGES -->
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red?style=for-the-badge&logo=streamlit)
+![AWS EC2](https://img.shields.io/badge/AWS-EC2-orange?style=for-the-badge&logo=amazonaws)
+![PM2](https://img.shields.io/badge/PM2-ProcessManager-green?style=for-the-badge&logo=pm2)
+![Machine Learning](https://img.shields.io/badge/MachineLearning-Model-green?style=for-the-badge&logo=scikitlearn)
+![SMOTE](https://img.shields.io/badge/ImbalancedData-SMOTE-purple?style=for-the-badge)
+![Random Forest](https://img.shields.io/badge/Model-RandomForest-yellow?style=for-the-badge)
+![XGBoost](https://img.shields.io/badge/Model-XGBoost-red?style=for-the-badge&logo=xgboost)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-ANN-orange?style=for-the-badge&logo=tensorflow)
+![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHubActions-blue?style=for-the-badge&logo=githubactions)
+
+<!-- ⚡ MODEL PERFORMANCE BADGES -->
+![AUC](https://img.shields.io/badge/AUC-0.826-brightgreen?style=for-the-badge)
+![Recall](https://img.shields.io/badge/Recall(Churn)-0.72-blue?style=for-the-badge)
+![Accuracy](https://img.shields.io/badge/Accuracy-0.78-yellow?style=for-the-badge)
+
+<!-- ⚡ PROJECT STATUS BADGE -->
+![Status](https://img.shields.io/badge/Status-ProductionSuccess-brightgreen?style=for-the-badge)
+
+<!-- ⚡ TRAFFIC & GITHUB BADGES -->
+![Visitors](https://api.visitorbadge.io/api/visitors?path=MasoodManzoorAhmed/telco-churn-ml&label=Visitors&labelColor=%23000000&countColor=%23263759&style=for-the-badge)
+![Stars](https://img.shields.io/github/stars/MasoodManzoorAhmed/telco-churn-ml?style=for-the-badge)
+![Forks](https://img.shields.io/github/forks/MasoodManzoorAhmed/telco-churn-ml?style=for-the-badge)
+
 ---
 
 ## 📑 Table of Contents
@@ -20,8 +45,9 @@
 14. CI/CD Pipeline (GitHub Actions → EC2)  
 15. Architecture Diagram  
 16. Future Enhancements  
-17. About the Author  
-18. Contact  
+17. Live Demo  
+18. About the Author
+19. Contact
 
 ---
 
@@ -91,6 +117,7 @@ This system answers:
 | Model Saving      | Joblib |
 | Web Deployment    | Streamlit |
 | Cloud Hosting     | AWS EC2 (Ubuntu 22.04) |
+| Process Manager   | PM2 (Node.js) |
 | CI/CD             | GitHub Actions + SSH Deploy |
 
 ---
@@ -226,25 +253,43 @@ pip install -r requirements.txt
 streamlit run app_streamlit.py
 
 ```
+**Note:**
+Production mode uses PM2 to keep the application running 24/7.
 
 ---
 
 # 13. AWS EC2 Deployment (Production)
 
+### ✔ Install System Dependencies
 ```
 sudo apt update && sudo apt upgrade -y
 sudo apt install python3-pip python3-venv -y
+```
 
+### ✔ Create Virtual Environment
+```
 python3 -m venv venv
 source venv/bin/activate
+```
 
+### ✔ Install Requirements
+```
 pip install -r requirements.txt
-
-streamlit run app/app_streamlit.py --server.address 0.0.0.0 --server.port 8501
+```
+### ✔ (One-Time Setup) Install PM2 for Background Execution
+```
+sudo apt install nodejs npm -y
+sudo npm install -g pm2
+```
+### ✔ Run Streamlit App Permanently
+```
+pm2 start "streamlit run app_streamlit.py --server.address 0.0.0.0 --server.port 8501" --name churn-app
+pm2 save
+pm2 startup
 ```
 
 Access:  
-`http://<EC2-PUBLIC-IP>:8501`
+`http://13.214.165.147:8501/`
 
 ---
 
@@ -272,6 +317,8 @@ If CI passes:
 - Production always matches GitHub  
 - Follows modern MLOps practices  
 
+**✔ PM2 ensures the production app stays online during CI/CD automatic deployments.**
+
 ---
 
 # 15. System Architecture Diagram
@@ -294,11 +341,12 @@ If CI passes:
            │   CI: Install + Test Streamlit App        │
            │   CD: SSH into EC2 → git pull             │
            └───────────────┬───────────────────────────┘
-                            │ Auto Deploy
-                            ▼
+                           │ Auto Deploy
+                           ▼
         ┌──────────────────────────────────────────────────────┐
         │                     AWS EC2 Ubuntu                   │
         │  venv + Streamlit Server + RandomForest Model        │
+        │  PM2 background manager (auto-restart)               │
         └──────────────────────┬───────────────────────────────┘
                                │
                                ▼
@@ -333,8 +381,17 @@ If CI passes:
 - AWS Elastic Beanstalk / ECS deployment  
 
 ---
+# 17. Live Demo
 
-# 17. About the Author
+### 🌐 Public URL:
+
+`http://13.214.165.147:8501/`
+
+Hosted on AWS EC2 + Streamlit + PM2 for permanent uptime.
+
+---
+
+# 18. About the Author
 
 **Masood Manzoor Ahmed**  
 Machine Learning Engineer | AI | Cloud | Analytics
@@ -349,9 +406,10 @@ Expertise includes:
 
 ---
 
-# 18. Contact
+# 19. Contact
 
 📌 **LinkedIn:** www.linkedin.com/in/masoodmanzoorahmed  
 📌 **GitHub:** https://github.com/MasoodManzoorAhmed/telco-churn-ml  
-📌 **Email:** masoodmanzoorahmed@gmail.com  
+📌 **Email:** masoodmanzoorahmed@gmail.com 
+
 
