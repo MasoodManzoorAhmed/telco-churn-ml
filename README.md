@@ -1,357 +1,257 @@
-
-# 📘 **Customer Churn Prediction — End-to-End Machine Learning Project (Production Ready)**
-
+# **📘 Customer Churn Prediction — End-to-End Machine Learning System (Production Ready)**
 **By: Masood Manzoor Ahmed — Machine Learning Engineer (Telecom / AI / Cloud)**
-
----
-
-## 📑 **Table of Contents**
-
-1. 📘 Project Overview
-2. 🎯 Business Problem
-3. 📂 Dataset Description
-4. 🔧 Tech Stack
-5. 🧼 Data Preprocessing
-6. 📊 Exploratory Data Analysis
-7. 🤖 Model Development
-8. 📈 Model Evaluation
-9. 🏆 Final Model Selection
-10. 🔥 Top Churn Drivers
-11. 💡 Business Recommendations
-12. 🧪 How to Run Locally
-13. ☁️ AWS EC2 Deployment
-14. 🏗 Architecture Diagram
-15. 🚀 Future Enhancements
-16. 👤 About the Author
-17. 📬 Contact
-
----
-
-# 1️⃣ **Project Overview**
-
-This project builds a **complete, real-world Machine Learning system** for **predicting telecom customer churn**.
-It demonstrates practical ML engineering skills used in **Saudi Arabia, Qatar, UAE, and global telecom companies**.
-
-The project includes:
-
-* Full preprocessing pipeline
-* EDA (numerical + categorical analysis)
-* Handling class imbalance
-* ML model training (4 models)
-* ANN (Deep Learning)
-* Model comparison & AUC scores
-* Feature importance
-* Business recommendations
-* Cloud deployment using Streamlit on AWS EC2
-
----
-
-# 2️⃣ **Business Problem**
-
-Telecom companies lose millions due to customer churn.
-
-This ML system answers:
-
-> **“Which customers are likely to leave next month, and why?”**
-
-Benefits for telecom operators:
-
-* Retain high-risk customers
-* Reduce revenue loss
-* Offer targeted promotions
-* Improve customer satisfaction
-* Improve overall ARPU (Average Revenue Per User)
-
----
-
-# 3️⃣ **Dataset Description**
-
-**Dataset:** IBM Telco Customer Churn
-**Rows:** 7032
-**Columns:** 21
-**Target:** `Churn` (Yes/No)
-
-Features include:
-
-* Demographics
-* Subscription details
-* Internet/phone services
-* Contract types
-* Billing/payment behavior
-* Monthly and total spend
-
----
-
-# 4️⃣ **Tech Stack**
-
-| Category           | Tools                                       |
-| ------------------ | ------------------------------------------- |
-| Languages          | Python                                      |
-| Data Processing    | Pandas, NumPy                               |
-| Visualization      | Matplotlib, Seaborn                         |
-| ML Models          | Logistic Regression, Random Forest, XGBoost |
-| Deep Learning      | TensorFlow / Keras ANN                      |
-| Imbalance Handling | SMOTE                                       |
-| Deployment         | Streamlit, AWS EC2                          |
-| Model Persistence  | Joblib                                      |
-
----
-
-# 5️⃣ **Data Preprocessing**
-
-Key steps:
-
-### ✔ Handling Missing Data
-
-* Cleaned invalid “TotalCharges” entries
-* Converted to float
-* Removed 11 corrupted rows
-
-### ✔ Data Cleaning
-
-* Stripped whitespace
-* Removed `customerID` (non-predictive)
-
-### ✔ Encoding & Scaling
-
-* One-Hot Encoding for categorical variables
-* StandardScaler for numerical features
-
-### ✔ Handling Imbalance (SMOTE)
-
-Before SMOTE:
-
-* Churn “Yes”: **1869**
-
-After SMOTE:
-
-* Churn “Yes”: **4130** (balanced)
-
-This improves recall and fairness of ML models.
-
----
-
-# 6️⃣ **Exploratory Data Analysis — Key Insights**
-
-### 🔥 High-churn patterns:
-
-* Customers with **0–3 months tenure** → highest risk
-* **Month-to-month** contracts churn the most
-* **Fiber optic** users churn more than DSL
-* **High monthly charges** strongly increase churn
-* **Electronic check** payment users churn heavily
-* Customers with **TechSupport** churn less
-* Gender has **no major impact**
-
----
-
-# 7️⃣ **Model Development**
-
-Trained 4 classical ML models + 1 deep learning model:
-
-### ✔ Logistic Regression
-
-### ✔ Random Forest
-
-### ✔ XGBoost
-
-### ✔ Deep Learning ANN (Keras)
-
-Each model was trained using the **same preprocessing pipeline** and evaluated on the same test data.
-
----
-
-# 8️⃣ **Model Evaluation**
-
-### 📌 AUC Scores
-
-| Model               | AUC       |
-| ------------------- | --------- |
-| **ANN**             | **0.826** |
-| Logistic Regression | 0.822     |
-| XGBoost             | 0.821     |
-| Random Forest       | 0.814     |
-
-### 📌 Test Metrics Summary
-
-| Model               | Accuracy | Recall (Churn) | F1 (Churn) |
-| ------------------- | -------- | -------------- | ---------- |
-| Logistic Regression | 0.74     | **0.72**       | 0.60       |
-| Random Forest       | 0.77     | 0.64           | 0.60       |
-| XGBoost             | 0.76     | 0.66           | 0.59       |
-| ANN                 | **0.78** | 0.62           | 0.61       |
-
-All models perform well, showing reliability of the pipeline.
-
----
-
-# 9️⃣ **Final Model Selection — Random Forest (Production Model)**
-
-Although the ANN had the **best AUC**, the production model chosen is:
-
-# ✅ **Random Forest Classifier**
-
-### Reasons:
-
-* Most stable and consistent performance
-* Best balance between precision/recall
-* Easy deployment
-* Lightweight (no TensorFlow overhead)
-* Interpretable for telecom stakeholders
-* Performs extremely well for **tabular business data**
-
-
----
-
-# 🔟 **Top 10 Churn Drivers (Feature Importance)**
-
-| Rank | Feature                       | Meaning                          |
-| ---- | ----------------------------- | -------------------------------- |
-| 1    | tenure                        | Shorter stay → high churn        |
-| 2    | TotalCharges                  | Low lifetime value → churn       |
-| 3    | MonthlyCharges                | High charges → cancellation      |
-| 4    | Contract_TwoYear              | Strong retention                 |
-| 5    | PaymentMethod_ElectronicCheck | Highest churn                    |
-| 6    | InternetService_FiberOptic    | Expensive → higher cancellations |
-| 7    | PaperlessBilling_Yes          | Price sensitive customers        |
-| 8    | Contract_OneYear              | Moderate retention               |
-| 9    | gender_Male                   | Slightly higher churn            |
-| 10   | OnlineSecurity_Yes            | Reduces churn                    |
-
----
-
-# 🔥 **11. Business Recommendations**
-
-Based on model findings:
-
-### ✔ Focus on first 3 months of customers
-
-### ✔ Push customers to 1-year and 2-year contracts
-
-### ✔ Offer retention offers to high-bill customers
-
-### ✔ Encourage bank transfer / credit card auto-pay
-
-### ✔ Provide TechSupport / OnlineSecurity add-ons
-
-### ✔ Improve Fiber Optic customer experience
-
-These actions would **significantly reduce churn**.
-
----
-
-# 12️⃣ **How to Run Locally**
-
-### Install dependencies:
-
-```bash
+________________________________________
+## **📑 Table of Contents**
+1.	Project Overview
+2.	Business Problem
+3.	Dataset Description
+4.	Tech Stack
+5.	Data Preprocessing
+6.	Exploratory Data Analysis
+7.	Model Development
+8.	Model Evaluation
+9.	Final Production Model
+10.	Top Churn Drivers
+11.	Business Recommendations
+12.	How to Run Locally
+13.	AWS EC2 Deployment
+14.	CI/CD Pipeline (GitHub Actions → EC2)
+15.	Architecture Diagram
+16.	Future Enhancements
+17.	About the Author
+18.	Contact
+________________________________________
+# **1. Project Overview**
+This project builds a full production-grade Machine Learning system that predicts telecom customer churn.
+It showcases real-world ML engineering skills expected by companies in:
+🇸🇦 Saudi Arabia • 🇶🇦 Qatar • 🇦🇪 UAE • 🇬🇧 UK
+The system includes:
+✔ Data preprocessing pipeline
+✔ Exploratory Data Analysis
+✔ SMOTE for imbalance handling
+✔ Model training (LogReg, RF, XGBoost)
+✔ Deep Learning ANN using Keras
+✔ Evaluation: AUC, F1, Recall, Confusion Matrices
+✔ Streamlit web deployment
+✔ AWS EC2 cloud hosting
+✔ CI/CD pipeline with GitHub Actions + SSH auto-deploy
+This mirrors real enterprise telecom churn prediction workflows.
+________________________________________
+# **2. Business Problem**
+Telecom providers lose millions due to customer churn.
+This system answers:
+“Which customers are likely to leave next month, and why?”
+Value to business:
+•	Reduce churn rate
+•	Improve customer retention
+•	Offer personalized promotions
+•	Increase revenue and customer satisfaction
+•	Focus retention teams on high-risk customers
+________________________________________
+# **3. Dataset Description**
+Dataset: IBM Telco Customer Churn
+Rows: 7032
+Predictors: 20
+Target: Churn (Yes/No)
+Includes:
+•	Demographics
+•	Phone/Internet services
+•	Contract type
+•	Billing & payment
+•	Monthly and total charges
+•	Tenure
+________________________________________
+# **4. Tech Stack**
+Category	Tools
+Languages	Python
+Data Processing	Pandas, NumPy
+Visualization	Matplotlib, Seaborn
+Modeling	Logistic Regression, Random Forest, XGBoost
+Deep Learning	TensorFlow / Keras
+Handling Imbalance	SMOTE (imblearn)
+Model Saving	Joblib
+Web Deployment	Streamlit
+Cloud Hosting	AWS EC2 (Ubuntu 22.04)
+CI/CD	GitHub Actions + EC2 SSH Deploy
+________________________________________
+# **5. Data Preprocessing**
+✔ Missing & Invalid Values
+•	Cleaned TotalCharges
+•	Removed corrupted rows
+•	Converted to float
+✔ Data Cleaning
+•	Removed whitespaces
+•	Dropped customerID
+✔ Encoding & Scaling
+•	One-Hot Encoding for categorical variables
+•	StandardScaler for numerical features
+✔ Class Imbalance Fix (SMOTE)
+Before: Churn “Yes” = 1869
+After SMOTE: 4130 (balanced)
+________________________________________
+# **6. Exploratory Data Analysis (Key Insights)**
+🔥 High Churn Groups:
+•	Tenure < 3 months
+•	Month-to-month contracts
+•	Fiber optic users
+•	High monthly charges
+•	Payment: Electronic check
+•	No online security/tech support
+Gender had no significant effect.
+________________________________________
+# **7. Model Development**
+Trained & compared:
+✔ Logistic Regression
+✔ Random Forest
+✔ XGBoost
+✔ ANN (TensorFlow/Keras)
+All models used the same preprocessing pipeline for fair comparison.
+________________________________________
+# **8. Model Evaluation**
+📌 AUC Scores
+Model	AUC
+ANN (Best)	0.826
+Logistic Regression	0.822
+XGBoost	0.821
+Random Forest	0.814
+📌 Classification Metrics Summary
+Model	Accuracy	Recall (Churn)	F1 (Churn)
+Logistic Regression	0.74	0.72	0.60
+Random Forest	0.77	0.64	0.60
+XGBoost	0.76	0.66	0.59
+ANN	0.78	0.62	0.61
+All models performed robustly for business use.
+________________________________________
+# **9. Final Production Model — Random Forest**
+Although ANN had the best AUC, the production-ready model is:
+✅ Random Forest (with full preprocessing pipeline + SMOTE)
+Why Random Forest?
+•	Most stable across metrics
+•	Best balance of precision + recall
+•	Lightweight (easy to deploy)
+•	Interpretable for decision-makers
+•	Works exceptionally well on tabular business data
+•	Fast inference on cloud servers
+________________________________________
+# **10. Top 10 Churn Drivers (Feature Importances)**
+Rank	Feature	Meaning
+1	tenure	Shorter stay → higher churn
+2	TotalCharges	Low lifetime value → churn
+3	MonthlyCharges	High monthly bill → churn
+4	Contract_TwoYear	Strong retention
+5	PaymentMethod_ElectronicCheck	Highest churn rate
+6	InternetService_FiberOptic	High expectations
+7	PaperlessBilling_Yes	Price sensitive
+8	Contract_OneYear	Mid-level retention
+9	gender_Male	Slightly higher churn
+10	OnlineSecurity_Yes	Reduces churn
+________________________________________
+# **🔥 11. Business Recommendations
+✔ Focus on first-3-month customers
+✔ Push users to 1–2 year contracts
+✔ Offer incentives for high-bill users
+✔ Convert customers from Electronic Check → Auto-Pay
+✔ Add TechSupport / OnlineSecurity bundles
+✔ Improve customer complaints handling for Fiber Optic users
+________________________________________
+# **12. Run Locally**
 pip install -r requirements.txt
-```
-
-### Run the Streamlit App:
-
-```bash
 streamlit run app_streamlit.py
-```
-
----
-
-# 13️⃣ **AWS EC2 Deployment (Production)**
-
-### ✔ Ubuntu Server 22.04 LTS
-
-### ✔ Deployed using Streamlit
-
-### ✔ Model + pipeline loaded from Pickle
-
-### Steps:
-
-```bash
-sudo apt update && sudo apt upgrade
-sudo apt install python3-pip python3-venv
+________________________________________
+# **13. AWS EC2 Deployment (Production)**
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3-pip python3-venv -y
 
 python3 -m venv venv
 source venv/bin/activate
 
 pip install -r requirements.txt
 
-streamlit run app/app_streamlit.py --server.port 8501 --server.address 0.0.0.0
-```
-
-### Access from browser:
-
-```
+streamlit run app/app_streamlit.py --server.address 0.0.0.0 --server.port 8501
+Access:
 http://<EC2-PUBLIC-IP>:8501
-```
-
----
-
-# 14️⃣ **System Architecture Diagram**
-
-```
-                      ┌───────────────────────────────┐
-                      │   Google Colab (Training)      │
-                      │  Data Prep + SMOTE + Models    │
-                      └───────────────┬───────────────┘
-                                      │
-                                      ▼
-                ┌──────────────────────────────────────────┐
-                │     Local Machine (VS Code / Windows)    │
-                │    Model Artifacts + Streamlit App       │
-                └───────────────┬──────────────────────────┘
-                                │   (SCP Upload)
-                                ▼
-          ┌──────────────────────────────────────────────────────────┐
-          │                  AWS EC2 Ubuntu Server                    │
-          │   ┌─────────────────────────┐  ┌──────────────────────┐  │
-          │   │  Virtual Environment    │  │  Streamlit Frontend  │  │
-          │   │  (Dependencies)         │  │  Prediction UI        │  │
-          │   └──────────────┬──────────┘  └───────────┬──────────┘  │
-          │                  │ loads                    │             │
-          │   churn_model_artifacts.pkl (Random Forest) │             │
-          └──────────────────┴──────────────────────────┴────────────┘
-                                │
-                                ▼
-                  ┌──────────────────────────────────────┐
-                  │   Telecom Managers / End Users        │
-                  │  View Predictions in Web Dashboard    │
-                  └──────────────────────────────────────┘
-```
-
----
-
-# 15️⃣ **Future Enhancements**
-
-* Deploy backend using **FastAPI**
-* Add **CI/CD pipeline (GitHub Actions)**
-* Add **Database logging (PostgreSQL / DynamoDB)**
-* Build a **Full Retention Dashboard**
-* Use **LightGBM / CatBoost** for higher AUC
-* Add **Explainability (SHAP Values)**
-
----
-
-# 👤 **About the Author**
-
-**Masood Manzoor Ahmed**
-Machine Learning Engineer | AI | Cloud
-
-Specializes in:
-
-* Predictive Modeling
-* Deep Learning
-* End-to-End ML Engineering
-* Cloud Deployment (AWS)
-* Feature Engineering
-
-
-
-# 📬 **Contact**
-
-📌 **LinkedIn:** *Add your link*
-📌 **GitHub:** *Add repo link*
-📌 **Email:** *Add your email*
-
----
-
+________________________________________
+# **14. CI/CD Pipeline (GitHub Actions → EC2 Auto Deployment)**
+This project includes a full CI/CD pipeline:
+CI — Continuous Integration
+On every push to main:
+•	Python environment created
+•	Dependencies installed
+•	Streamlit “smoke test” runs (ensures app runs)
+CD — Continuous Deployment
+If CI passes:
+•	GitHub Actions connects to EC2 via SSH
+•	Pulls latest code
+•	Installs dependencies
+•	Updates production app automatically
+✔ Benefits
+•	No manual deployment
+•	Zero-downtime updates
+•	Production always matches GitHub
+•	Professional MLOps setup recruiters love
+________________________________________
+# **15. System Architecture Diagram**
+                    ┌───────────────────────────────┐
+                    │      Google Colab (Training)   │
+                    │  SMOTE + RF + ANN + Evaluation │
+                    └───────────────┬───────────────┘
+                                    │
+                                    ▼
+             ┌───────────────────────────────────────────┐
+             │ Local Machine (VS Code)                    │
+             │ Model Artifacts + Streamlit App            │
+             └───────────────┬───────────────────────────┘
+                             │ Git Push
+                             ▼
+           ┌───────────────────────────────────────────┐
+           │           GitHub Repository               │
+           │   CI: Install + Test Streamlit App        │
+           │   CD: SSH into EC2 → git pull             │
+           └───────────────┬───────────────────────────┘
+                            │ Auto Deploy
+                            ▼
+        ┌──────────────────────────────────────────────────────┐
+        │                     AWS EC2 Ubuntu                   │
+        │  venv + Streamlit Server + RandomForest Model        │
+        └──────────────────────┬───────────────────────────────┘
+                               │
+                               ▼
+               ┌────────────────────────────────────┐
+               │ Telecom Managers / End-Users        │
+               │ Web Dashboard for Churn Prediction  │
+               └────────────────────────────────────┘
+________________________________________
+# **16. Future Enhancements**
+🔥 MLOps & Engineering
+•	Add Docker container for reproducible deployment
+•	Use Nginx + Gunicorn for production-grade serving
+•	Add monitoring with AWS CloudWatch
+•	Log predictions into RDS/PostgreSQL
+🔥 Modeling
+•	Try CatBoost / LightGBM
+•	Hyperparameter tuning with Optuna
+•	Add SHAP explainability dashboard
+🔥 User Interface
+•	Build a telecom churn dashboard (Streamlit / Grafana)
+•	Add downloadable PDF reports
+🔁 CI/CD Enhancements
+•	Add automated unit tests
+•	Add CD rollback strategy
+•	Deploy using AWS Elastic Beanstalk or ECS
+________________________________________
+# **17. About the Author**
+Masood Manzoor Ahmed
+ML Engineer | AI | Cloud | Analytics
+Expertise:
+•	Predictive Modeling
+•	Deep Learning
+•	Telecom Analytics
+•	End-to-End ML Pipelines
+•	AWS Deployment
+•	MLOps Foundations
+________________________________________
+# **18. Contact**
+📌 LinkedIn: www.linkedin.com/in/masoodmanzoorahmed
+📌 GitHub: (https://github.com/MasoodManzoorAhmed/telco-churn-ml)
+📌 Email: masooodmanzoorahmed@gmail.com
 
