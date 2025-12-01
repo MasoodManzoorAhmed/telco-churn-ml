@@ -188,7 +188,7 @@ If CI passes:
 •	No manual deployment
 •	Zero-downtime updates
 •	Production always matches GitHub
-•	Professional MLOps setup recruiters love
+•	Professional MLOps setup
 ________________________________________
 # **15. System Architecture Diagram**
                     ┌───────────────────────────────┐
