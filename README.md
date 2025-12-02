@@ -54,7 +54,7 @@
 # 1. Project Overview
 
 This project develops a **production-grade Machine Learning system** that predicts telecom customer churn.  
-It demonstrates a complete end-to-end ML engineering workflow used by **Saudi, UAE, and Qatar telecom companies**.
+It demonstrates a complete end-to-end ML engineering workflow.
 
 ### The system includes:
 - Full preprocessing pipeline  
